@@ -20,7 +20,8 @@ The sources for most of the files have instructions about how to use them, or at
 
 I also have an asm folder, which hosts assembly files compatible with my ppc-inject assembler. (http://github.com/tuckergs/ppc-inject)
 
-simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries.
+simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries. You could use the after-offset features that ppc-inject offers to place your code things after the function (using "#function $fnName after $fn803133cc"). You could then use "./PPCInject \[in REL\] \[out REL\] simple803133cc.asm yourAsmFile.asm"
+
 
 
 ## Compiling

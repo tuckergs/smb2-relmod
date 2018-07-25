@@ -1,4 +1,9 @@
 
+% This is a shorter version of function 803133cc
+% This should also remove the need for its helper functions
+% This is a BETTA version. Let me know if there are random, unexpected crashes
+
+
 % Note that r1 is sp
 #function $fn803133cc 0xa32cc
 % Setup
@@ -8,7 +13,6 @@
 0x93e1001c
 0x93c10018
 0x93a10014
-% TODO: Make ppc-inject accept byte code
 
 % Startup
 lis r3,0x805c
@@ -160,3 +164,11 @@ blr
 
 
 #function $fn803146e0 0xa45e0
+
+#function $blrAt80313818 0xa3718
+blr
+
+#function $replace1 0x2bbb50 
+% There's an entry in a jump table that references blr 0x8031365c
+% Make it reference our new blr 0x80313818
+0x000a3640
