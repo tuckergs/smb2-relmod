@@ -14,6 +14,15 @@ You need to use this if you plan to modify main_loop assembly
 
 CmpFiles.hs outputs the differences of two RELs
 
+The sources for most of the files have instructions about how to use them, or at least will tell you the usage if you run them with no arguments
+
+## Assembly files
+
+I also have an asm folder, which hosts assembly files compatible with my ppc-inject assembler. (http://github.com/tuckergs/ppc-inject)
+
+simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries.
+
+
 ## Compiling
 
 You can compile any of these tools by using

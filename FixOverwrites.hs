@@ -4,6 +4,7 @@
 -- You specify an input REL, a file name to output to, and a range in RAM where we want to disable the overwrites
 -- Also, the program will output all of the overwrite addresses that it encounters before the end of the range. It will also output what type of overwrite is used
 -- There is a descriptive comment at the end of the line that you should comment out if you don't want that behavior
+-- Also, the base defaults to base 10, as per the Haskell norm. Use 0x if you want base 16
 
 import Control.Applicative
 import Control.Monad
