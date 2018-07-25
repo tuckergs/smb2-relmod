@@ -1,5 +1,6 @@
 
 % This is a shorter version of function 803133cc
+% It doesn't respect the jump distances you set for the goals; it always uses the default jump distances
 % This should also remove the need for its helper functions
 % This is a BETTA version. Let me know if there are random, unexpected crashes
 
