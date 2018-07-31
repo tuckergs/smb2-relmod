@@ -22,8 +22,7 @@ I also have an asm folder, which hosts assembly files compatible with my ppc-inj
 
 simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries. Also, this shorter version doesn't support arbitrary jump distances or different jump distances at different times. You could use the after-offset features that ppc-inject offers to place your code things after the function (using "#function $fnName after $fn803133cc"). You could then use "./PPCInject \[in REL\] \[out REL\] simple803133cc.asm yourAsmFile.asm". PPCInject will also alert you if you go over the space allotted
 
-simple8031381c.asm makes 8031381c significantly shorter for the purpose of adding your own code in the space it took up before. This supports jump distance, but you don't get as many instructions as simple803133cc. Look above for features that PPCInject has that should prove to be helpful
-
+I also made code that accepts a shorter challenge mode entry format with more efficient unlocked level bytes; I call these new cm entries barebones entries. To use them right out of the box, use my fixBareBone.sh script (or follow the steps in it) and then use PPCInject with asm files bareBonesEntries.asm and nrm3a78.asm. Look at testBareBoneEntries.asm for an example of the format, and use it with PPCInject if you want to experiment with those entries
 
 
 ## Compiling
