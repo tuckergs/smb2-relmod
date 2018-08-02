@@ -233,6 +233,11 @@ blr
 
 #function $fn8031381c 0xa371c
 
+% Setup
+stwu r1, -0x0010 (r1)
+mflr r0
+stw r0, 0x0014 (r1)
+
 % Challenge mode or practice mode?
 lis r3, 0x805d
 addi r3, r3, 0x4914
@@ -242,36 +247,20 @@ beq .challenge
 
 % Practice mode
 li r6, 0
-li r5, 0
 lis r3, 0x805d
 addi r3, r3, 0x4918
 lwz r4, 0x0004 (r3)
-rlwinm r0, r4, 0, 8, 8  % Master Extra
-cmpwi r0, 0
-beq .notMaEX
-li r5, 7
-b .findFirst
-.notMaEX
-rlwinm r0, r4, 0, 27, 27  % Master
-cmpwi r0, 0
-beq .notMa
-li r5, 6
-b .findFirst
-.notMa
-rlwinm r0, r4, 0, 28, 28
-cmpwi r0, 0
-beq .afterExtra
-li r5, 3
-.afterExtra
-lha r0, 0x0002 (r3)
-add r5, r0, r5
+lha r3, 0x0002 (r3)
+bl $prDiffIndicatorsToNum
 % Find first entry pointer
 .findFirst
-rlwinm r5, r5, 2, 0, 29  % r5 = r5 << 2
+rlwinm r5, r3, 2, 0, 29  % r5 = r5 << 2
 lis r4, 0x8048
 addi r4, r4, 0xb4ec  % r4 = 0x8047b4ec
 add r4, r4, r5
 lwz r4, 0 (r4)
+lis r3, 0x805d
+addi r3, r3, 0x4918
 b .loopEnter
 
 .loopBegin
@@ -299,7 +288,11 @@ addi r3, r3, 0x490c
 lwz r3, 0 (r3)  % Get entry pointer
 lhz r3, 0x0004 (r3)
 
+% Cleanup and end
 .end
+lwz r0, 0x0014 (r1)
+mtlr r0
+addi r1, r1, 0x0010
 blr
 
 
