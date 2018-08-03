@@ -1,0 +1,35 @@
+
+------ Unlock data ------
+What: 
+-Some entry formats have data about how to check/set whether the level in question is unlocked 
+Counters:
+-We can use an 8 bit counter to decide unlockedness for the unskippable levels
+-The entry would specify a location and a value
+-The game would check whether the entry's unlock value is less than the counter determined by the unlock location
+Bit Field:
+-We can also use one bit to decide unlockedness for the skippable levels
+-The entry specifies which bit to look at
+-This is how vanilla SMB2 decides unlockedness (the way the game decides which bit to look at is hardcoded)
+Notes:
+-You would probably want a new save file if your entries include counters, because the space between vanilla and mod SMB2 for storing unlockedness is shared
+
+
+------ Barebone entries ------
+
+What: 
+-These let you have large challenge mode difficulties. 
+-Each entry takes 8 bytes each, as opposed to the vanilla entries taking at least 84 bytes
+-These entries also hold data about how to load/store whether or not the level is unlocked
+-You cannot specify jump distance with these.
+
+Instructions about how to use these:
+1. If you don't have it already, get Haskell Platform or something that compiles Haskell. Or get executables of the relevant tools
+2. First compile FixOverwrites.hs by running "ghc FixOverwrites.hs". 
+3. Put your favorite mkb2.main_loop.rel into the cmasm directory
+4. Run fixBareBones.bat or fixBareBones.sh (use the one for your OS) in the cmasm directory 
+-There's this nice feature that function 800104bc has which overwrites assembly if you don't stop it from doing that
+-FixOverwrites that causes 800104bc to not overwrite code in a particular range
+-fixBareBones.sh automates the calls to FixOverwrites
+5. Go get PPCInject.exe from my ppc-inject repo and put it in cmasm
+6. Run "./PPCInject.exe mkb2.main_loop_fix_for_barebone.rel mkb2.main_loop_code_for_barebone.rel bareBoneEntries.asm normalDiffIndicators.asm"
+7. Use cmmod to put your cm entries in there
