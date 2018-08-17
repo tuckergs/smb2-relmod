@@ -14,6 +14,8 @@ You need to use this if you plan to modify main_loop assembly
 
 CmpFiles.hs outputs the differences of two RELs
 
+BonusList.hs lets you specify which stage ids constitute bonus levels. See the simpleBonusList.bonus.txt for a sample config for it
+
 The sources for most of the files have instructions about how to use them, or at least will tell you the usage if you run them with no arguments
 
 ## Assembly files

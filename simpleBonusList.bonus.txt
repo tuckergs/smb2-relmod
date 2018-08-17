@@ -1,0 +1,14 @@
+
+% Uncomment next line to have shorter bonus lists. You need to use the shortBonusList.asm code in the genasm folder
+% #entryType Short
+
+205 % Bowl
+225 % Board Park
+230 % Leveler
+240 % Rampage
+265 % Partition
+270 % Pachinko
+280 % Earthquake
+290 % Banana Hunting
+300 % Fighters
+
