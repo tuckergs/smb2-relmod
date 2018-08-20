@@ -9,8 +9,10 @@ LevelTilt.hs modifies the degree that the stage tilts. 50 deg tilt is Super Anti
 
 PartyBallHeight.hs modifies how far from the ground a goal's party ball is
 
-FixOverwrites.hs modifies which code in the REL is not overwritten by function 800104bc.
+FixOverwrites.hs modifies which code in the main_loop REL is not overwritten by function 800104bc.
 You need to use this if you plan to modify main_loop assembly
+
+FixOverwritesMainGame.hs fixes overwrites for the main_game REL
 
 CmpFiles.hs outputs the differences of two RELs
 
