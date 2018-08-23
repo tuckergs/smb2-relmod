@@ -70,7 +70,7 @@ fixOverwrites rec = do
           let 
             nextCall = loop $ (,) thisOverwriteAddress $ tableOffset + 8
           hPutStrLn stderr $ (show $ Hex $ thisOverwriteAddress) ++ " " ++ (show $ Hex $ tableOffset) ++ " " ++ (show $ Hex $ mode) -- Comment this line to make this program be not verbose
-          if ((mode `elem` [0x04,0x06]) && (beginIgnoreAddress <= thisOverwriteAddress))
+          if (beginIgnoreAddress <= thisOverwriteAddress)
             then BB.hPutBuilder outFile $ BB.word8 0x0
             else BB.hPutBuilder outFile $ BB.word8 mode
           cpBytes 1 5
