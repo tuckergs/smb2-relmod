@@ -30,7 +30,9 @@ genasm/simple803133cc.asm is a file that makes 803133cc shorter so you can have 
 
 genasm/shortBonusList.asm lets you write a shorter bonus stage list. This list specifies what levels are bonus stages. Instructions for use are in it
 
-In cmasm is code that accepts a shorter challenge mode entry format with more efficient unlocked level bytes; I call these new cm entries barebones entries. See my docs/newEntryFormats.txt for instructions about how to inject this code into your REL.
+In cmasm is code that accepts a shorter challenge mode entry format with more efficient unlocked level bytes; I call these new cm entries barebones entries. See my docs/newCMEntryFormats.txt for instructions about how to inject this code into your REL.
+
+Also in cmasm is code that accepts a new story mode entry format which specifies time along with stage id and difficulty. See my docs/newSMEntryFormats.txt for details and instructions
 
 
 ## Compiling
