@@ -1,0 +1,21 @@
+
+-- Vanilla story mode format
+
+Format: A vanilla story mode entry is 4 bytes long and is in the form: SSSSDDDD
+Here, the S's represent stage id and the D's are the difficulty
+
+-- The new story mode entry format
+
+Motivation: We want to specify any time we want for a story mode level. These entries allow us to do that
+
+Format: A new story mode entry is still 4 bytes and is now in the form: DSSSTTTT
+The D is the difficulty, the S's are the stage id, and the T's are the time
+
+-- How to use new story mode entry format
+
+To use the entries, you need to add some assembly to it using ppc-inject
+
+First, get PPCInject from my ppc-inject repo. Then compile FixOverwrites using "ghc FixOverwrites.hs" in the root of this repo.
+
+Now put mkb2.main_loop.rel into the cmasm directory, and run addNewStoryCode.bat in the cmasm. You will get mkb2.main_loop_code_for_new_story.rel, that respects the new entries. You can then edit the new entries using a hex editor, or smmod (NOTE: at the time of writing, smmod doesn't support new story mode entries). Note that by default, code_for_new_story has the vanilla story mode level order in the new format
+

@@ -24,12 +24,7 @@ What:
 
 Instructions about how to use these:
 1. If you don't have it already, get Haskell Platform or something that compiles Haskell. Or get executables of the relevant tools
-2. First compile FixOverwrites.hs by running "ghc FixOverwrites.hs". 
+2. First compile FixOverwrites.hs by running "ghc FixOverwrites.hs". Also, get PPCInject from my ppc-inject repo
 3. Put your favorite mkb2.main_loop.rel into the cmasm directory
-4. Run fixBareBones.bat or fixBareBones.sh (use the one for your OS) in the cmasm directory 
--There's this nice feature that function 800104bc has which overwrites assembly if you don't stop it from doing that
--FixOverwrites that causes 800104bc to not overwrite code in a particular range
--fixBareBones.sh automates the calls to FixOverwrites
-5. Go get PPCInject.exe from my ppc-inject repo and put it in cmasm
-6. Run "./PPCInject.exe mkb2.main_loop_fix_for_barebone.rel mkb2.main_loop_code_for_barebone.rel bareBoneEntries.asm normalDiffIndicators.asm"
-7. Use cmmod to put your cm entries in there
+4. Run addBareBonesCode.bat in the cmasm directory 
+5. Use cmmod to put your cm entries in there
