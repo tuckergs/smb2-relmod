@@ -654,29 +654,48 @@ blr
 #function $part80314308 0xa43e8  % start replacing at 0x803144e8
 lis r3, 0x805d
 addi r3, r3, 0x490c
+lwz r3, 0 (r3)
 lbz r0, 0x0008 (r3)
-lis r4, 0x805d
-addi r4, r4, 0x494c
-mulli r0, r30, 108
-add r4, r4, r0
-addi r4, r4, 4
+mr r4, r29
 cmpwi r0, 3
 beq .handleEndOfDiff
 
 % Not end of diff
-% r3 is equal to 0x805d490c here
-lha r0, 0x000a (r3)
-stw r4, 0x0004 (r4)
+% r3 points to the current entry here
+lbz r6, 0x0001 (r3)  % Get goal data
+li r5, 1
+b .loop1Enter
+.loop1Begin
+rlwinm r0, r6, 0, 31, 31
+rlwinm r6, r6, 31, 1, 31
+cmpwi r0, 1
+bne .loop1Iter
+% Add goal data
+lis r3, 0x805d
+addi r3, r3, 0x490c
+lwz r3, 0 (r3)
+rlwinm r0, r5, 3, 0, 28
+add r3, r3, r0
+lhz r0, 0x0002 (r3)
+stw r0, 0x000C (r4)
 lis r3, 0x8055
 addi r3, r3, 0x3970
-lha r0, 0x0020 (r3)
-stw r0, 0 (r4)
+lhz r0, 0x0020 (r3)
+add r0, r0, r5
+stw r0, 0x0008 (r4)
+addi r4, r4, 8
+addi r31, r31, 1
+.loop1Iter
+addi r5, r5, 1
+.loop1Enter
+cmpwi r6, 0
+bne .loop1Begin
 b .end
 
 .handleEndOfDiff
 li r0, -1
-stw r0, 0 (r4)
-stw r0, 0x0004 (r4)
+stw r0, 0x0008 (r4)
+stw r0, 0x000C (r4)
 
 .end
 b $endPart80314308
