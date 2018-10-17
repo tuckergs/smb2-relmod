@@ -36,6 +36,8 @@ genasm/masterCanUnlockPractice.asm makes it so playing a level in Master is enou
 
 genasm/allowNegativeContinues.asm gives you infinite continues in the sense that it will let you have a negative amount of continues
 
+genasm/noContinues.asm makes it so you can't continue after losing all of your lives
+
 cmasm contains some pretty hefty hacks for the modification of challenge mode and story mode. These have bat files that you should use.
 
 In cmasm is code that accepts a shorter challenge mode entry format with more efficient unlocked level bytes; I call these new cm entries barebones entries. See my docs/newCMEntryFormats.txt for instructions about how to inject this code into your REL.
