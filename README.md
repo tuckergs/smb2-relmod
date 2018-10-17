@@ -18,6 +18,8 @@ CmpFiles.hs outputs the differences of two RELs
 
 BonusList.hs lets you specify which stage ids constitute bonus levels. Make sure you inject genasm/shortBonusList.asm before you use it! See the simpleBonusList.bonus.txt for a sample config for it
 
+VariousMod.hs currently lets you change the theme ids. See sampleVarConfig.var.txt for a sample config
+
 The sources for most of the files have instructions about how to use them, or at least will tell you the usage if you run them with no arguments
 
 ## Assembly files
