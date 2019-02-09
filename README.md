@@ -5,7 +5,7 @@ This repo provides miscellaneous tools to modify/analyze the various RELs for Su
 
 ## Current tools
 
-LevelTilt.hs modifies the degree that the stage tilts. 50 deg tilt is Super Anti-Gravity ball
+LevelTilt.hs modifies the degree that the stage tilts. 50 deg tilt is Super Anti-Gravity Ball
 
 PartyBallHeight.hs modifies how far from the ground a goal's party ball is
 
@@ -16,7 +16,7 @@ FixOverwritesMainGame.hs and FixOverwritesSelNgc.rel fix overwrites for the main
 
 CmpFiles.hs outputs the differences of two RELs
 
-BonusList.hs lets you specify which stage ids constitute bonus levels. Make sure you inject genasm/shortBonusList.asm before you use it! See the simpleBonusList.bonus.txt for a sample config for it
+BonusList.hs lets you specify which stage ids constitute bonus levels. Make sure you inject genasm/shortBonusList.asm before you use short bonus list entries! See the simpleBonusList.bonus.txt for a sample config for it
 
 VariousMod.hs currently lets you change the theme ids. See sampleVarConfig.var.txt for a sample config
 
@@ -28,7 +28,7 @@ I have two folders that contain assembly files, genasm and cmasm . You could use
 
 The genasm folder contains miscellaneous asm hacks for SMB2. 
 
-genasm/simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries. Also, this shorter version doesn't support arbitrary jump distances or different jump distances at different times. You could use the after-offset features that ppc-inject offers to place your code things after the function (using "#function $fnName after $fn803133cc"). You could then use "./PPCInject \[in REL\] \[out REL\] simple803133cc.asm yourAsmFile.asm". PPCInject will also alert you if you go over the space allotted
+genasm/simple803133cc.asm is a file that makes 803133cc shorter so you can have space for your own code. This is separate from my new cm entry project; it uses the vanilla cm entries. Also, this shorter version doesn't support arbitrary jump distances or different jump distances that trigger at different times. You should use the after-offset features that ppc-inject offers to place your code snippets after the function (using "#function $fnName after $fn803133cc"). You could then use "./PPCInject \[in REL\] \[out REL\] simple803133cc.asm [one or more asm files]". If you go over the space allotted, fear not! PPCInject will yell at you and not insert the code if you go over allotted space
 
 genasm/shortBonusList.asm lets you write a shorter bonus stage list. This list specifies what levels are bonus stages. Instructions for use are in it
 
@@ -38,7 +38,12 @@ genasm/masterCanUnlockPractice.asm makes it so playing a level in Master is enou
 
 genasm/allowNegativeContinues.asm gives you infinite continues in the sense that it will let you have a negative amount of continues
 
-genasm/noContinues.asm makes it so you can't continue after losing all of your lives
+genasm/noWarpBonus.asm removes the warp bonus from going into a warp goal. Useful for packs where you want to use warp goals solely for branching to other worlds
+
+genasm/noExtras.asm doesn't let you continue on to any of the Extras in Challenge Mode
+
+genasm/startWithZeroContinues.asm makes it so you start off with no continues. Normally, this would make it so you can't continue after losing all of your lives. I used it with conjunction with the negative continues code snippet
+
 
 cmasm contains some pretty hefty hacks for the modification of challenge mode and story mode. These have bat files that you should use.
 
