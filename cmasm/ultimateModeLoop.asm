@@ -1,4 +1,41 @@
 
+% Handles difficulty indicator value getting/setting for multiplayer stuff
+
+#function $part80272c48 0x2b48
+bl $setter
+
+#function $part80272d98 0x2c98
+bl $getter
+
+#function $setter after $fn803133cc
+stw r5, 0 (r3)
+lis r3, 0x8055
+addi r3, r3, 0xdc40
+lwz r5, 0x4 (r3) % Get value
+lwz r4, 0x2c (r3) % Get player num
+lis r3, 0x8048
+addi r3, r3, 0xb334
+add r3, r3, r4
+stb r5, 0 (r3)
+blr
+
+#function $getter after $fn803133cc
+stw r0, 0x0008 (r3)
+lis r3, 0x8055
+addi r3, r3, 0xdc40
+lwz r4, 0x2c (r3)
+lis r3, 0x8048
+addi r3, r3, 0xb334
+add r3, r3, r4
+lbz r0, 0 (r3)
+lis r3, 0x8055
+addi r3, r3, 0xdc40
+stw r0, 0x4 (r3)
+blr
+
+
+
+
 % Figures out which ranking board to use?
 
 #function $part8038b4ec 0x11b3ec
@@ -61,8 +98,6 @@ b $part8038a444
 
 
 
-
-
 % Various text
 #function $nameEntryText 0x2265f8 
 0x2D554C54 
@@ -74,8 +109,5 @@ b $part8038a444
 0x554C542E 
 0x204D4F44 
 0x45000000
-
-
-
 
 
