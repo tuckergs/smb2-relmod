@@ -22,9 +22,29 @@ What:
 -These entries also hold data about how to load/store whether or not the level is unlocked
 -You cannot specify jump distance with these.
 
-Instructions about how to use these:
-1. If you don't have it already, get Haskell Platform or something that compiles Haskell. Or get executables of the relevant tools
-2. First compile FixOverwrites.hs by running "ghc FixOverwrites.hs". Also, get PPCInject from my ppc-inject repo
-3. Put your favorite mkb2.main_loop.rel into the cmasm directory
-4. Run addBareBonesCode.bat in the cmasm directory 
-5. Use cmmod to put your cm entries in there
+Instructions about how to use these
+-You need a REL that has code in it to handle the new type of entry. Two ways to get it:
+1. Ask someone for a REL with the barebone code in it
+2. Manually add the code yourself with the following steps:
+  a. If you don't have it already, get Haskell Platform or something that compiles Haskell. Or get executables of the relevant tools
+  b. First compile FixOverwrites.hs by running "ghc FixOverwrites.hs". Also, get PPCInject from my ppc-inject repo and put it in the cmasm directory
+  c. Put your favorite mkb2.main_loop.rel into the cmasm directory
+  d. Run addBareBonesCode.bat in the cmasm directory. This will create a file called mkb2.main_loop_code_for_barebones.rel
+You then use cmmod to put your difficulty sets in there. Note that you will also need to add the line "#entryType BareBone" to the top of your cmmod config
+
+Important info about level unlockedness
+-Level unlockedness, which is the notion of whether or not a level is unlocked, is a complicated problem to tackle because we only have 20 bytes to store level unlockedness
+-CMMod currently can output barebone entries with two separate schemes: optimized and stable
+
+-The optimized scheme is the default. This scheme outputs barebone entries that thoroughly optimize the level unlockedness bytes using binary counters for most of the levels
+--While this scheme is pretty much required if you want huge difficulties, your mod must be either using a different save or a different game id (because a different save is made/used for different game ids) because the counters won't transfer well into the vanilla game which interprets every level unlockedness byte as a bit field
+
+-The stable scheme only uses bit fields to store unlockedness. 
+--This scheme makes it safe to use the same save across other saves. 
+--However, this allows you to add only 20 more levels across all difficulties. 
+--Note that you can't get more levels by decreasing the size of a difficulty from the vanilla limit. That is, making Beginner 5 levels long won't allow you to extend the other difficulties by 25 levels overall.
+--Useful if you ran out of space for the vanilla entries for a mod with vanilla-sized difficulties
+
+Known bugs:
+-There's a little bit of an asthetic bug in the level tree in Debug Mode. I ain't wanna touch that code though
+-When there's a warp goal on a bonus stage, you warp when you Bonus Finish. I think that this has to do with me forcibly removing a function call in function 803133cc if I recall correctly.
