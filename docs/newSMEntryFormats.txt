@@ -15,7 +15,7 @@ The D is the difficulty, the S's are the stage id, and the T's are the time
 
 To use the entries, you need to add some assembly to it using ppc-inject
 
-First, get PPCInject from my ppc-inject repo. Then compile FixOverwrites using "ghc FixOverwrites.hs" in the root of this repo.
+First, get PPCInject from my ppc-inject repo and put it in the cmasm directory. Then compile FixOverwrites using "ghc FixOverwrites.hs" in the root of this repo.
 
-Now put mkb2.main_loop.rel into the cmasm directory, and run addNewStoryCode.bat in the cmasm. You will get mkb2.main_loop_code_for_new_story.rel, that respects the new entries. You can then edit the new entries using a hex editor, or smmod. Note that by default, code_for_new_story has the vanilla story mode level order in the new format
+Now put mkb2.main_loop.rel into the cmasm directory, and run addNewStoryCode.bat in the cmasm directory. You will get mkb2.main_loop_code_for_new_story.rel, that respects the new entries. You can then edit the new entries using a hex editor, or smmod. If you use smmod, don't forget to add the line "#entryType New" at the top, or YOUR GAME WILL CRASH. Note that code_for_new_story has the vanilla story mode level order in the new format
 
