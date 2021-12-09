@@ -47,6 +47,8 @@ genasm/noWarpBonus.asm removes the warp bonus from going into a warp goal. Usefu
 
 genasm/noExtras.asm doesn't let you continue on to any of the Extras in Challenge Mode
 
+genasm/noMasterExtra.asm makes it so you don't continue onto Master Extra in Challenge Mode
+
 genasm/startWithZeroContinues.asm makes it so you start off with no continues. Normally, this would make it so you can't continue after losing all of your lives. I used it with conjunction with the negative continues code snippet
 
 
