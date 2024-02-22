@@ -112,8 +112,22 @@ cmpwi r6, 0x0
 bne .enteredGoal
 b .end
 
-% Get goal entered and compute jump distance
 .enteredGoal
+
+% r31 holds game mode. 2 for practice, 0 for challenge
+% branch based on the mode, in order to compute jump distance
+lis r4, 0x8055
+addi r4, r4, 0xdc40 % r4 = 0x8054dc40
+lwz r31, 0x0028 (r4)
+cmpwi r31, 2
+bne .jdNotPractice
+
+% jump distance practice
+li r4, 1
+li r5, -1
+b .storeJumpDistance
+
+.jdNotPractice
 lis r4, 0x805c
 addi r4,r4,0xd980 % r4 = 0x805bd980
 lwz r4, 0 (r4)
@@ -135,22 +149,33 @@ cmplwi r0,0x0003
 bge .end
 mr r4,r0
 addi r4,r4,1
+mr r5, r4
 
-% Compute next level and next stage id
+% Store jump distance in 80553992, 805d4910
+.storeJumpDistance
 lis r3,0x8055
 addi r3,r3,0x3970
 sth r4, 0x0022 (r3)
 lis r3,0x805d
 addi r3,r3,0x4910
-stw r4, 0 (r3)
+stw r5, 0 (r3)
+
+% Break if practice mode
+cmpwi r31, 2
+beq .end
+
+% Make r30 point to the next level's entry
+% it's a loop since there isn't a num levels byte anywhere
+% r31 is whether we found a level (0 if we reached end of diff)
+% r30 holds address to current entry. starts out with next entry
+% r29 is how many entries gone thru, and will hold jump distance
+% branch if at end of diff
 lis r3, 0x805d
 addi r3, r3, 0x490c
-li r31,0
 lwz r30, 0 (r3)
+li r31,0
 li r29,0
 b .stgIdLoopEnter
-
-% Make r30 point to the next level's stg id
 .stgIdLoopBegin
 cmpw r29, r4
 bne .stgIdLoopIncr
@@ -164,13 +189,10 @@ lbz r0, 0 (r30)
 cmplwi r0, 3
 bne .stgIdLoopBegin
 .stgIdLoopEnd
+
+% branch based on whether or not we are at end of diff
 cmpwi r31, 0
 beq .handleEndOfDiff
-
-% Store next level entry pointer if we didn't hit end of diff
-lis r3, 0x805d
-addi r3, r3, 0x490c
-stw r30, 0 (r3)
 b .handleNonEndOfDiff
 
 .handleEndOfDiff
@@ -184,27 +206,46 @@ stw r0, 0 (r3)
 b .end
 
 .handleNonEndOfDiff
+
+% Store next level entry pointer if we didn't hit end of diff
+lis r3, 0x805d
+addi r3, r3, 0x490c
+stw r30, 0 (r3)
+
+% Store stage id
 lhz r0, 0x0002 (r30)
 lis r3, 0x8055
 addi r3, r3, 0x3970
 sth r0, 0x002e (r3)
+
+% Some progress function
 bl $fn803146e0
-extsh r0, r29
-lis r3, 0x8055
-addi r3, r3, 0x3970
-sth r0, 0x0022 (r3)
-lis r3, 0x8055
-addi r3, r3, 0xdc40 % r3 = 0x8054dc40
-lwz r0, 0x0028 (r3)
-cmpwi r0, 2
-beq .L1
+
+%% OLD
+% extsh r0, r29
+% lis r3, 0x8055
+% addi r3, r3, 0x3970
+% sth r0, 0x0022 (r3)
+
+%% OLD
+% lis r3, 0x8055
+% addi r3, r3, 0xdc40 % r3 = 0x8054dc40
+% lwz r0, 0x0028 (r3)
+% cmpwi r0, 2
+% beq .L1
+
+% Update level num
 lis r3, 0x8055
 addi r3, r3, 0x3970
 lha r5, 0x0020 (r3)
 lha r4, 0x0022 (r3)
 add r5, r5, r4
 sth r5, 0x0020 (r3)
-.L1
+
+%% OLD
+% .L1
+
+% Fix jump distance local
 li r0, -1
 lis r3, 0x805d
 addi r3, r3, 0x4910
